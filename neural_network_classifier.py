@@ -218,19 +218,13 @@ for j in range(0,attr_iter):
 
     attribute_tracker[j,:] = [learn_rate,drop_param,n_hidden,std_len_scaler,std_len,lambd,secondDonateweight]
 
-    # [  1.83405150e-01   8.14774160e-01   1.70030142e+03   1.19172611e-01
-    # 4.47934544e-01   1.66989334e+00]
-
-
     for k, (train, test) in enumerate(skf.split(input_matrix, output_matrix[:,1])):
         
         x_train, y_train = input_matrix[train,:],  output_matrix[train,:]
         x_test,  y_test  = input_matrix[test,:], output_matrix[test,:]
         
-        #sm = SMOTE(kind='regular') 
-        sm = SMOTE(kind='borderline1') #better than regular
-        #sm = SMOTE(kind='borderline2') #meh
-        #sm = SMOTE(kind='svm') #better than regular
+        sm = SMOTE(kind='borderline1') #better performance than regular kind
+
         
         x_train, labels_over = sm.fit_sample(x_train,  y_train[:,1])
         
@@ -292,7 +286,7 @@ for j in range(0,attr_iter):
         print(score_tracker)
         print(average_score)
         print(attribute_tracker[j,:])
-print('ITS OVERRRRR')
+print('Neural network has finished learning. Printing scores...')
 print('       ')
 print(score_tracker)
 print(average_score)
